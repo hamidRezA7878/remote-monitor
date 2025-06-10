@@ -1,0 +1,19 @@
+
+version: '3.8'
+
+services:
+  ssh_server:
+    image: rastasheep/ubuntu-sshd:18.04
+    container_name: ssh-server
+    ports:
+      - "2222:22"
+    restart: always
+
+  monitor_client:
+    build: ./remote_monitor
+    container_name: monitor-client
+    depends_on:
+      - ssh_server
+    stdin_open: true
+    tty: true
+    command: ["./build/remote_monitor", "root@ssh_server", "root", "80", "70"]
