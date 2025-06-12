@@ -15,7 +15,7 @@ std::string runRemoteCommand(const std::string& user, const std::string& host, c
     std::ostringstream cmd;
     cmd << "sshpass -p " << password
         << " ssh -o StrictHostKeyChecking=no -p " << port
-        << " " << user << "@" << host << " "" << command << """;
+        << " " << user << "@" << host << " '" << command << "'";
     FILE* pipe = popen(cmd.str().c_str(), "r");
     if (!pipe) return "ERROR";
 
